@@ -4,74 +4,76 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0); /* White background */
-  --foreground: oklch(0.35 0 0); /* Dark gray text */
-  --card: oklch(0.98 0.01 195); /* Light cyan card background */
-  --card-foreground: oklch(0.32 0 0); /* Dark gray text on cards */
-  --popover: oklch(1 0 0); /* White popover background */
-  --popover-foreground: oklch(0.35 0 0); /* Dark gray popover text */
-  --primary: oklch(0.35 0.08 200); /* Deep cyan primary */
-  --primary-foreground: oklch(1 0 0); /* White text on primary */
-  --secondary: oklch(0.65 0.15 160); /* Emerald accent */
-  --secondary-foreground: oklch(1 0 0); /* White text on secondary */
-  --muted: oklch(0.99 0 0); /* Very light gray muted */
-  --muted-foreground: oklch(0.35 0 0); /* Dark gray muted text */
-  --accent: oklch(0.65 0.15 160); /* Emerald accent */
-  --accent-foreground: oklch(1 0 0); /* White text on accent */
-  --destructive: oklch(0.55 0.2 25); /* Red for destructive actions */
-  --destructive-foreground: oklch(1 0 0); /* White text on destructive */
-  --border: oklch(0.85 0 0); /* Light gray borders */
-  --input: oklch(0.98 0.01 195); /* Light cyan input background */
-  --ring: oklch(0.65 0.15 160); /* Emerald focus ring */
-  --chart-1: oklch(0.55 0.15 200); /* Cyan chart color */
-  --chart-2: oklch(0.6 0.15 160); /* Green chart color */
-  --chart-3: oklch(0.75 0.15 85); /* Yellow chart color */
-  --chart-4: oklch(0.6 0.2 25); /* Red chart color */
-  --chart-5: oklch(0.6 0.2 270); /* Purple chart color */
+  /* Updated to elegant modern theme with sophisticated colors */
+  --background: #fafafa; /* Light neutral background */
+  --foreground: #1a1a1a; /* Dark text for contrast */
+  --card: #ffffff; /* Pure white cards */
+  --card-foreground: #1a1a1a; /* Dark card text */
+  --popover: #ffffff; /* White popover background */
+  --popover-foreground: #1a1a1a; /* Dark popover text */
+  --primary: #2563eb; /* Professional blue primary */
+  --primary-foreground: #ffffff; /* White text on primary */
+  --secondary: #f1f5f9; /* Light gray secondary */
+  --secondary-foreground: #0f172a; /* Dark text on secondary */
+  --muted: #f8fafc; /* Very light muted background */
+  --muted-foreground: #64748b; /* Medium gray muted text */
+  --accent: #10b981; /* Professional green accent */
+  --accent-foreground: #ffffff; /* White text on accent */
+  --destructive: #ef4444; /* Professional red for destructive actions */
+  --destructive-foreground: #ffffff; /* White text on destructive */
+  --border: #e2e8f0; /* Light gray borders */
+  --input: #ffffff; /* White input background */
+  --ring: rgba(37, 99, 235, 0.2); /* Blue focus ring */
+  --chart-1: #10b981; /* Green for positive trends */
+  --chart-2: #ef4444; /* Red for negative trends */
+  --chart-3: #3b82f6; /* Blue for neutral */
+  --chart-4: #8b5cf6; /* Purple for alerts */
+  --chart-5: #f59e0b; /* Amber for warnings */
   --radius: 0.5rem;
-  --sidebar: oklch(1 0 0); /* White sidebar */
-  --sidebar-foreground: oklch(0.35 0 0); /* Dark gray sidebar text */
-  --sidebar-primary: oklch(0.35 0.08 200); /* Deep cyan sidebar primary */
-  --sidebar-primary-foreground: oklch(1 0 0); /* White sidebar primary text */
-  --sidebar-accent: oklch(0.65 0.15 160); /* Emerald sidebar accent */
-  --sidebar-accent-foreground: oklch(1 0 0); /* White sidebar accent text */
-  --sidebar-border: oklch(0.85 0 0); /* Light gray sidebar borders */
-  --sidebar-ring: oklch(0.65 0.15 160); /* Emerald sidebar focus ring */
+  --sidebar: #ffffff; /* White sidebar */
+  --sidebar-foreground: #1a1a1a; /* Dark sidebar text */
+  --sidebar-primary: #2563eb; /* Blue sidebar primary */
+  --sidebar-primary-foreground: #ffffff; /* White sidebar primary text */
+  --sidebar-accent: #10b981; /* Green sidebar accent */
+  --sidebar-accent-foreground: #ffffff; /* White sidebar accent text */
+  --sidebar-border: #e2e8f0; /* Light sidebar borders */
+  --sidebar-ring: rgba(37, 99, 235, 0.2); /* Blue sidebar focus ring */
 }
 
 .dark {
-  --background: oklch(0.08 0 0); /* Very dark background */
-  --foreground: oklch(0.95 0 0); /* Light text */
-  --card: oklch(0.12 0.02 200); /* Dark cyan card background */
-  --card-foreground: oklch(0.95 0 0); /* Light card text */
-  --popover: oklch(0.08 0 0); /* Dark popover background */
-  --popover-foreground: oklch(0.95 0 0); /* Light popover text */
-  --primary: oklch(0.7 0.12 200); /* Lighter cyan primary for dark mode */
-  --primary-foreground: oklch(0.08 0 0); /* Dark text on primary */
-  --secondary: oklch(0.7 0.15 160); /* Bright emerald for dark mode */
-  --secondary-foreground: oklch(0.08 0 0); /* Dark text on secondary */
-  --muted: oklch(0.15 0 0); /* Dark muted background */
-  --muted-foreground: oklch(0.7 0 0); /* Light muted text */
-  --accent: oklch(0.7 0.15 160); /* Bright emerald accent */
-  --accent-foreground: oklch(0.08 0 0); /* Dark text on accent */
-  --destructive: oklch(0.6 0.2 25); /* Bright red for dark mode */
-  --destructive-foreground: oklch(0.95 0 0); /* Light text on destructive */
-  --border: oklch(0.2 0 0); /* Dark borders */
-  --input: oklch(0.12 0.02 200); /* Dark cyan input background */
-  --ring: oklch(0.7 0.15 160); /* Bright emerald focus ring */
-  --chart-1: oklch(0.6 0.15 200); /* Bright cyan chart */
-  --chart-2: oklch(0.7 0.15 160); /* Bright green chart */
-  --chart-3: oklch(0.8 0.15 85); /* Bright yellow chart */
-  --chart-4: oklch(0.7 0.2 25); /* Bright red chart */
-  --chart-5: oklch(0.7 0.2 270); /* Bright purple chart */
-  --sidebar: oklch(0.1 0 0); /* Dark sidebar */
-  --sidebar-foreground: oklch(0.95 0 0); /* Light sidebar text */
-  --sidebar-primary: oklch(0.7 0.12 200); /* Bright cyan sidebar primary */
-  --sidebar-primary-foreground: oklch(0.08 0 0); /* Dark sidebar primary text */
-  --sidebar-accent: oklch(0.7 0.15 160); /* Bright emerald sidebar accent */
-  --sidebar-accent-foreground: oklch(0.08 0 0); /* Dark sidebar accent text */
-  --sidebar-border: oklch(0.2 0 0); /* Dark sidebar borders */
-  --sidebar-ring: oklch(0.7 0.15 160); /* Bright emerald sidebar focus ring */
+  /* Enhanced dark mode with elegant professional aesthetics */
+  --background: #0f172a; /* Deep navy background */
+  --foreground: #f8fafc; /* Light text */
+  --card: #1e293b; /* Dark slate card background */
+  --card-foreground: #f8fafc; /* Light card text */
+  --popover: #1e293b; /* Dark popover background */
+  --popover-foreground: #f8fafc; /* Light popover text */
+  --primary: #3b82f6; /* Bright blue primary */
+  --primary-foreground: #ffffff; /* White text on primary */
+  --secondary: #334155; /* Medium slate secondary */
+  --secondary-foreground: #f8fafc; /* Light text on secondary */
+  --muted: #1e293b; /* Dark muted background */
+  --muted-foreground: #94a3b8; /* Light gray muted text */
+  --accent: #22c55e; /* Bright green accent */
+  --accent-foreground: #ffffff; /* White text on accent */
+  --destructive: #f87171; /* Bright red */
+  --destructive-foreground: #ffffff; /* White text on destructive */
+  --border: #334155; /* Medium slate borders */
+  --input: #1e293b; /* Dark input background */
+  --ring: rgba(59, 130, 246, 0.3); /* Blue focus ring */
+  --chart-1: #22c55e; /* Bright green chart */
+  --chart-2: #f87171; /* Bright red chart */
+  --chart-3: #60a5fa; /* Light blue chart */
+  --chart-4: #a78bfa; /* Light purple chart */
+  --chart-5: #fbbf24; /* Light amber chart */
+  --sidebar: #0f172a; /* Deep navy sidebar */
+  --sidebar-foreground: #f8fafc; /* Light sidebar text */
+  --sidebar-primary: #3b82f6; /* Bright blue sidebar primary */
+  --sidebar-primary-foreground: #ffffff; /* White sidebar primary text */
+  --sidebar-accent: #22c55e; /* Bright green sidebar accent */
+  --sidebar-accent-foreground: #ffffff; /* White sidebar accent text */
+  --sidebar-border: #334155; /* Medium slate sidebar borders */
+  --sidebar-ring: rgba(59, 130, 246, 0.3); /* Blue sidebar focus ring */
 }
 
 @theme inline {
@@ -119,5 +121,72 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Added elegant gradient background with subtle texture */
+    background: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* Updated to elegant modern effects and animations */
+@layer utilities {
+  .elegant-glow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease-in-out;
+  }
+
+  .elegant-glow-strong {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass-card {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(51, 65, 85, 0.3);
+  }
+
+  .comparison-frame {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .comparison-frame {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(51, 65, 85, 0.5);
+  }
+
+  .smooth-transition {
+    transition: all 0.2s ease-in-out;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #2563eb, #10b981, #3b82f6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 }
