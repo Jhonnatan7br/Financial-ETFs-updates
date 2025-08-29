@@ -6,8 +6,6 @@
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/DglhRfMtNQz)
 
 <img width="1178" height="796" alt="image" src="https://github.com/user-attachments/assets/8f41cd4a-2c6b-4114-83ce-8131f8ef7323" />
-<img width="1053" height="748" alt="image" src="https://github.com/user-attachments/assets/4623d7c3-d0dd-4464-b201-7a82c92fe101" />
-
 
 ## 🚀 What This Platform Offers
 
@@ -30,6 +28,8 @@
 - **API testing console** for technical validation and data verification
 
 ## 🎯 Key Features
+
+<img width="1053" height="748" alt="image" src="https://github.com/user-attachments/assets/a4b6e329-8826-47b9-82a1-c82517b87d2d" />
 
 ### 📊 Market Dashboard
 - **Live ETF data** from Alpha Vantage API for US markets
