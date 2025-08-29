@@ -5,13 +5,66 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Search, Globe, RefreshCw, TrendingUp, TrendingDown, ChevronDown, ChevronUp } from "lucide-react"
-import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts"
+import { Search, Globe, RefreshCw, TrendingUp, TrendingDown, ChevronDown, ChevronUp, TestTube } from "lucide-react"
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, Line, LineChart } from "recharts"
+import Link from "next/link"
 
 import { getETFData, transformAlphaVantageData, US_ETFS, EUROPEAN_ETFS } from "@/lib/alpha-vantage"
 
+const generateDateRange = (startYear: number, endYear: number, period: string) => {
+  const dates = []
+  const currentYear = new Date().getFullYear()
+  const actualEndYear = Math.min(endYear, currentYear)
+
+  switch (period) {
+    case "1D":
+      // Generate hourly data for current day
+      for (let hour = 9; hour <= 16; hour++) {
+        dates.push(`${hour}:${hour === 9 ? "30" : "00"}`)
+      }
+      break
+    case "1W":
+      // Generate daily data for current week
+      const days = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+      dates.push(...days)
+      break
+    case "1M":
+      // Generate weekly data for current month
+      for (let week = 1; week <= 4; week++) {
+        dates.push(`Week ${week}`)
+      }
+      break
+    case "3M":
+      // Generate monthly data for 3 months
+      for (let month = 1; month <= 3; month++) {
+        dates.push(`Month ${month}`)
+      }
+      break
+    case "1Y":
+      // Generate quarterly data
+      const quarters = ["Q1", "Q2", "Q3", "Q4"]
+      dates.push(...quarters)
+      break
+    case "2Y":
+      // Generate yearly data for 2 years
+      for (let year = actualEndYear - 1; year <= actualEndYear; year++) {
+        dates.push(year.toString())
+      }
+      break
+    case "5Y":
+      // Generate yearly data for 5 years
+      for (let year = Math.max(startYear, actualEndYear - 4); year <= actualEndYear; year++) {
+        dates.push(year.toString())
+      }
+      break
+    default:
+      dates.push("Current")
+  }
+
+  return dates
+}
+
 const mockETFData = [
-  // US ETFs
   {
     symbol: "SPY",
     name: "SPDR S&P 500 ETF Trust",
@@ -40,53 +93,13 @@ const mockETFData = [
       { sector: "Other", percentage: 18.1 },
     ],
     chartData: {
-      "1D": [
-        { time: "9:30", price: 443.33 },
-        { time: "10:00", price: 444.12 },
-        { time: "10:30", price: 443.89 },
-        { time: "11:00", price: 445.23 },
-        { time: "11:30", price: 444.78 },
-        { time: "12:00", price: 445.67 },
-        { time: "12:30", price: 446.12 },
-        { time: "1:00", price: 445.89 },
-      ],
-      "1W": [
-        { time: "Mon", price: 440.12 },
-        { time: "Tue", price: 442.34 },
-        { time: "Wed", price: 441.89 },
-        { time: "Thu", price: 444.56 },
-        { time: "Fri", price: 445.67 },
-      ],
-      "1M": [
-        { time: "Week 1", price: 435.23 },
-        { time: "Week 2", price: 438.45 },
-        { time: "Week 3", price: 442.12 },
-        { time: "Week 4", price: 445.67 },
-      ],
-      "3M": [
-        { time: "Month 1", price: 425.34 },
-        { time: "Month 2", price: 435.67 },
-        { time: "Month 3", price: 445.67 },
-      ],
-      "1Y": [
-        { time: "Q1", price: 395.23 },
-        { time: "Q2", price: 415.45 },
-        { time: "Q3", price: 435.12 },
-        { time: "Q4", price: 445.67 },
-      ],
-      "2Y": [
-        { time: "2022", price: 365.45 },
-        { time: "2023", price: 415.23 },
-        { time: "2024", price: 445.67 },
-      ],
-      "5Y": [
-        { time: "2019", price: 285.34 },
-        { time: "2020", price: 325.67 },
-        { time: "2021", price: 385.12 },
-        { time: "2022", price: 365.45 },
-        { time: "2023", price: 415.23 },
-        { time: "2024", price: 445.67 },
-      ],
+      "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 443.33 + i * 0.5 })),
+      "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 440.12 + i * 1.2 })),
+      "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 435.23 + i * 2.8 })),
+      "3M": generateDateRange(1990, 2024, "3M").map((time, i) => ({ time, price: 425.34 + i * 6.8 })),
+      "1Y": generateDateRange(1990, 2024, "1Y").map((time, i) => ({ time, price: 395.23 + i * 12.6 })),
+      "2Y": generateDateRange(1990, 2024, "2Y").map((time, i) => ({ time, price: 365.45 + i * 40.1 })),
+      "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 285.34 + i * 32.1 })),
     },
     performance: {
       "1D": 0.53,
@@ -126,53 +139,13 @@ const mockETFData = [
       { sector: "Other", percentage: 18.1 },
     ],
     chartData: {
-      "1D": [
-        { time: "9:30", price: 406.08 },
-        { time: "10:00", price: 406.89 },
-        { time: "10:30", price: 406.67 },
-        { time: "11:00", price: 407.98 },
-        { time: "11:30", price: 407.56 },
-        { time: "12:00", price: 408.23 },
-        { time: "12:30", price: 408.67 },
-        { time: "1:00", price: 408.45 },
-      ],
-      "1W": [
-        { time: "Mon", price: 404.12 },
-        { time: "Tue", price: 406.34 },
-        { time: "Wed", price: 405.89 },
-        { time: "Thu", price: 407.56 },
-        { time: "Fri", price: 408.23 },
-      ],
-      "1M": [
-        { time: "Week 1", price: 403.23 },
-        { time: "Week 2", price: 406.45 },
-        { time: "Week 3", price: 405.12 },
-        { time: "Week 4", price: 408.23 },
-      ],
-      "3M": [
-        { time: "Month 1", price: 402.34 },
-        { time: "Month 2", price: 405.67 },
-        { time: "Month 3", price: 408.23 },
-      ],
-      "1Y": [
-        { time: "Q1", price: 394.12 },
-        { time: "Q2", price: 404.34 },
-        { time: "Q3", price: 405.89 },
-        { time: "Q4", price: 408.23 },
-      ],
-      "2Y": [
-        { time: "2022", price: 393.23 },
-        { time: "2023", price: 403.45 },
-        { time: "2024", price: 408.23 },
-      ],
-      "5Y": [
-        { time: "2019", price: 382.34 },
-        { time: "2020", price: 392.45 },
-        { time: "2021", price: 402.12 },
-        { time: "2022", price: 403.23 },
-        { time: "2023", price: 406.45 },
-        { time: "2024", price: 408.23 },
-      ],
+      "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 406.08 + i * 0.5 })),
+      "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 404.12 + i * 1.2 })),
+      "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 403.23 + i * 2.8 })),
+      "3M": generateDateRange(1990, 2024, "3M").map((time, i) => ({ time, price: 402.34 + i * 6.8 })),
+      "1Y": generateDateRange(1990, 2024, "1Y").map((time, i) => ({ time, price: 394.12 + i * 12.6 })),
+      "2Y": generateDateRange(1990, 2024, "2Y").map((time, i) => ({ time, price: 393.23 + i * 40.1 })),
+      "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 382.34 + i * 32.1 })),
     },
     performance: {
       "1D": 0.53,
@@ -212,53 +185,13 @@ const mockETFData = [
       { sector: "Other", percentage: 18.1 },
     ],
     chartData: {
-      "1D": [
-        { time: "9:30", price: 443.53 },
-        { time: "10:00", price: 444.34 },
-        { time: "10:30", price: 444.12 },
-        { time: "11:00", price: 445.45 },
-        { time: "11:30", price: 445.01 },
-        { time: "12:00", price: 445.89 },
-        { time: "12:30", price: 446.34 },
-        { time: "1:00", price: 446.12 },
-      ],
-      "1W": [
-        { time: "Mon", price: 442.53 },
-        { time: "Tue", price: 444.78 },
-        { time: "Wed", price: 444.12 },
-        { time: "Thu", price: 445.89 },
-        { time: "Fri", price: 446.34 },
-      ],
-      "1M": [
-        { time: "Week 1", price: 441.23 },
-        { time: "Week 2", price: 444.45 },
-        { time: "Week 3", price: 444.12 },
-        { time: "Week 4", price: 446.34 },
-      ],
-      "3M": [
-        { time: "Month 1", price: 440.34 },
-        { time: "Month 2", price: 444.67 },
-        { time: "Month 3", price: 446.34 },
-      ],
-      "1Y": [
-        { time: "Q1", price: 439.23 },
-        { time: "Q2", price: 443.45 },
-        { time: "Q3", price: 444.12 },
-        { time: "Q4", price: 446.34 },
-      ],
-      "2Y": [
-        { time: "2022", price: 438.23 },
-        { time: "2023", price: 443.45 },
-        { time: "2024", price: 446.34 },
-      ],
-      "5Y": [
-        { time: "2019", price: 428.23 },
-        { time: "2020", price: 433.45 },
-        { time: "2021", price: 443.12 },
-        { time: "2022", price: 444.23 },
-        { time: "2023", price: 444.45 },
-        { time: "2024", price: 446.34 },
-      ],
+      "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 443.53 + i * 0.5 })),
+      "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 442.53 + i * 1.2 })),
+      "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 441.23 + i * 2.8 })),
+      "3M": generateDateRange(1990, 2024, "3M").map((time, i) => ({ time, price: 440.34 + i * 6.8 })),
+      "1Y": generateDateRange(1990, 2024, "1Y").map((time, i) => ({ time, price: 439.23 + i * 12.6 })),
+      "2Y": generateDateRange(1990, 2024, "2Y").map((time, i) => ({ time, price: 438.23 + i * 40.1 })),
+      "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 428.23 + i * 32.1 })),
     },
     performance: {
       "1D": 0.53,
@@ -298,53 +231,13 @@ const mockETFData = [
       { sector: "Other", percentage: 18.7 },
     ],
     chartData: {
-      "1D": [
-        { time: "9:30", price: 266.11 },
-        { time: "10:00", price: 266.89 },
-        { time: "10:30", price: 267.23 },
-        { time: "11:00", price: 267.45 },
-        { time: "11:30", price: 267.67 },
-        { time: "12:00", price: 267.89 },
-        { time: "12:30", price: 268.12 },
-        { time: "1:00", price: 267.98 },
-      ],
-      "1W": [
-        { time: "Mon", price: 265.11 },
-        { time: "Tue", price: 266.89 },
-        { time: "Wed", price: 267.23 },
-        { time: "Thu", price: 267.45 },
-        { time: "Fri", price: 267.89 },
-      ],
-      "1M": [
-        { time: "Week 1", price: 264.11 },
-        { time: "Week 2", price: 266.89 },
-        { time: "Week 3", price: 267.23 },
-        { time: "Week 4", price: 267.89 },
-      ],
-      "3M": [
-        { time: "Month 1", price: 263.11 },
-        { time: "Month 2", price: 266.89 },
-        { time: "Month 3", price: 267.89 },
-      ],
-      "1Y": [
-        { time: "Q1", price: 262.11 },
-        { time: "Q2", price: 266.89 },
-        { time: "Q3", price: 267.23 },
-        { time: "Q4", price: 267.89 },
-      ],
-      "2Y": [
-        { time: "2022", price: 261.11 },
-        { time: "2023", price: 266.89 },
-        { time: "2024", price: 267.89 },
-      ],
-      "5Y": [
-        { time: "2019", price: 251.11 },
-        { time: "2020", price: 261.89 },
-        { time: "2021", price: 266.23 },
-        { time: "2022", price: 266.89 },
-        { time: "2023", price: 267.23 },
-        { time: "2024", price: 267.89 },
-      ],
+      "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 266.11 + i * 0.5 })),
+      "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 265.11 + i * 1.2 })),
+      "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 264.11 + i * 2.8 })),
+      "3M": generateDateRange(1990, 2024, "3M").map((time, i) => ({ time, price: 263.11 + i * 6.8 })),
+      "1Y": generateDateRange(1990, 2024, "1Y").map((time, i) => ({ time, price: 262.11 + i * 12.6 })),
+      "2Y": generateDateRange(1990, 2024, "2Y").map((time, i) => ({ time, price: 261.11 + i * 40.1 })),
+      "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 251.11 + i * 32.1 })),
     },
     performance: {
       "1D": 0.67,
@@ -384,53 +277,13 @@ const mockETFData = [
       { sector: "Other", percentage: 4.5 },
     ],
     chartData: {
-      "1D": [
-        { time: "9:30", price: 380.37 },
-        { time: "10:00", price: 379.84 },
-        { time: "10:30", price: 380.12 },
-        { time: "11:00", price: 379.23 },
-        { time: "11:30", price: 378.67 },
-        { time: "12:00", price: 378.92 },
-        { time: "12:30", price: 378.45 },
-        { time: "1:00", price: 378.78 },
-      ],
-      "1W": [
-        { time: "Mon", price: 379.37 },
-        { time: "Tue", price: 378.84 },
-        { time: "Wed", price: 380.12 },
-        { time: "Thu", price: 379.23 },
-        { time: "Fri", price: 378.67 },
-      ],
-      "1M": [
-        { time: "Week 1", price: 378.37 },
-        { time: "Week 2", price: 378.84 },
-        { time: "Week 3", price: 380.12 },
-        { time: "Week 4", price: 378.67 },
-      ],
-      "3M": [
-        { time: "Month 1", price: 377.37 },
-        { time: "Month 2", price: 378.84 },
-        { time: "Month 3", price: 378.67 },
-      ],
-      "1Y": [
-        { time: "Q1", price: 376.37 },
-        { time: "Q2", price: 378.84 },
-        { time: "Q3", price: 380.12 },
-        { time: "Q4", price: 378.67 },
-      ],
-      "2Y": [
-        { time: "2022", price: 375.37 },
-        { time: "2023", price: 378.84 },
-        { time: "2024", price: 378.67 },
-      ],
-      "5Y": [
-        { time: "2019", price: 365.37 },
-        { time: "2020", price: 375.84 },
-        { time: "2021", price: 378.12 },
-        { time: "2022", price: 379.23 },
-        { time: "2023", price: 378.67 },
-        { time: "2024", price: 378.67 },
-      ],
+      "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 380.37 + i * 0.5 })),
+      "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 379.37 + i * 1.2 })),
+      "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 378.37 + i * 2.8 })),
+      "3M": generateDateRange(1990, 2024, "3M").map((time, i) => ({ time, price: 377.37 + i * 6.8 })),
+      "1Y": generateDateRange(1990, 2024, "1Y").map((time, i) => ({ time, price: 376.37 + i * 12.6 })),
+      "2Y": generateDateRange(1990, 2024, "2Y").map((time, i) => ({ time, price: 375.37 + i * 40.1 })),
+      "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 365.37 + i * 32.1 })),
     },
     performance: {
       "1D": -0.38,
@@ -452,6 +305,7 @@ export default function ETFDashboard() {
   const [regionFilter, setRegionFilter] = useState<string>("All")
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1D")
   const [isLoading, setIsLoading] = useState(false)
+  const [dateRange, setDateRange] = useState({ start: 1990, end: new Date().getFullYear() })
 
   const filteredETFs = etfData.filter(
     (etf) =>
@@ -462,11 +316,29 @@ export default function ETFDashboard() {
 
   const comparisonETFs = filteredETFs.slice(0, 5)
 
+  const getUnifiedChartData = () => {
+    if (comparisonETFs.length === 0) return []
+
+    const timePoints = generateDateRange(dateRange.start, dateRange.end, selectedPeriod)
+
+    return timePoints.map((time, index) => {
+      const dataPoint: any = { time }
+
+      comparisonETFs.forEach((etf) => {
+        const etfData = etf.chartData[selectedPeriod]
+        if (etfData && etfData[index]) {
+          dataPoint[etf.symbol] = etfData[index].price
+        }
+      })
+
+      return dataPoint
+    })
+  }
+
   const refreshData = async () => {
     setIsLoading(true)
     const updatedData = await Promise.all(
       etfData.map(async (etf) => {
-        // Check if this is a US ETF that can use real API data
         if (US_ETFS.includes(etf.symbol)) {
           try {
             const apiData = await getETFData(etf.symbol)
@@ -494,7 +366,6 @@ export default function ETFDashboard() {
           }
         }
 
-        // Fallback to simulated data for European ETFs or API failures
         return {
           ...etf,
           price: etf.price + (Math.random() - 0.5) * 2,
@@ -522,6 +393,21 @@ export default function ETFDashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
       <div className="container mx-auto px-4 py-8 space-y-8">
+        <div className="flex justify-center gap-4 mb-6">
+          <Button variant="default" asChild>
+            <Link href="/">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Dashboard
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/api-test">
+              <TestTube className="w-4 h-4 mr-2" />
+              API Test
+            </Link>
+          </Button>
+        </div>
+
         {/* Header */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -550,7 +436,7 @@ export default function ETFDashboard() {
               <TrendingUp className="w-5 h-5 text-emerald-500" />
               Market Comparison - Top 5 ETFs
             </CardTitle>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 items-center">
               {timePeriods.map((period) => (
                 <Button
                   key={period.key}
@@ -562,24 +448,32 @@ export default function ETFDashboard() {
                   {period.label}
                 </Button>
               ))}
+              <div className="flex items-center gap-2 ml-4">
+                <span className="text-xs text-muted-foreground">Date Range:</span>
+                <Input
+                  type="number"
+                  min="1990"
+                  max={new Date().getFullYear()}
+                  value={dateRange.start}
+                  onChange={(e) => setDateRange((prev) => ({ ...prev, start: Number.parseInt(e.target.value) }))}
+                  className="w-20 h-8 text-xs"
+                />
+                <span className="text-xs">to</span>
+                <Input
+                  type="number"
+                  min="1990"
+                  max={new Date().getFullYear()}
+                  value={dateRange.end}
+                  onChange={(e) => setDateRange((prev) => ({ ...prev, end: Number.parseInt(e.target.value) }))}
+                  className="w-20 h-8 text-xs"
+                />
+              </div>
             </div>
           </CardHeader>
           <CardContent>
             <div className="h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={comparisonETFs[0]?.chartData[selectedPeriod] || []}>
-                  <defs>
-                    {comparisonETFs.map((etf, index) => (
-                      <linearGradient key={etf.symbol} id={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1">
-                        <stop
-                          offset="5%"
-                          stopColor={etf.changePercent >= 0 ? "#10b981" : "#ef4444"}
-                          stopOpacity={0.3}
-                        />
-                        <stop offset="95%" stopColor={etf.changePercent >= 0 ? "#10b981" : "#ef4444"} stopOpacity={0} />
-                      </linearGradient>
-                    ))}
-                  </defs>
+                <LineChart data={getUnifiedChartData()}>
                   <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
                   <XAxis dataKey="time" className="text-xs" tick={{ fontSize: 12 }} />
                   <YAxis className="text-xs" tick={{ fontSize: 12 }} domain={["dataMin - 5", "dataMax + 5"]} />
@@ -592,18 +486,17 @@ export default function ETFDashboard() {
                     }}
                   />
                   {comparisonETFs.map((etf, index) => (
-                    <Area
+                    <Line
                       key={etf.symbol}
                       type="monotone"
-                      dataKey="price"
-                      data={etf.chartData[selectedPeriod]}
+                      dataKey={etf.symbol}
                       stroke={etf.changePercent >= 0 ? "#10b981" : "#ef4444"}
                       strokeWidth={2}
-                      fill={`url(#gradient-${index})`}
+                      dot={false}
                       name={etf.symbol}
                     />
                   ))}
-                </AreaChart>
+                </LineChart>
               </ResponsiveContainer>
             </div>
             <div className="grid grid-cols-5 gap-4 mt-4">
