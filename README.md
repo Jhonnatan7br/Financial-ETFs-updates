@@ -5,6 +5,10 @@
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/jhonnatan7br-6217s-projects/v0-financial-etf-updates)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/DglhRfMtNQz)
 
+<img width="1178" height="796" alt="image" src="https://github.com/user-attachments/assets/8f41cd4a-2c6b-4114-83ce-8131f8ef7323" />
+<img width="1053" height="748" alt="image" src="https://github.com/user-attachments/assets/4623d7c3-d0dd-4464-b201-7a82c92fe101" />
+
+
 ## 🚀 What This Platform Offers
 
 ### For Investment Professionals
