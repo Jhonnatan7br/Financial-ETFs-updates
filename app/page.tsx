@@ -17,6 +17,24 @@ const generateDateRange = (startYear: number, endYear: number, period: string) =
   const actualEndYear = Math.min(endYear, currentYear)
 
   switch (period) {
+    case "5min":
+      // Generate 5-minute intervals for current trading day (9:30 AM to 4:00 PM)
+      const startHour = 9
+      const startMinute = 30
+      const endHour = 16
+      const endMinute = 0
+
+      for (let hour = startHour; hour <= endHour; hour++) {
+        const startMin = hour === startHour ? startMinute : 0
+        const endMin = hour === endHour ? endMinute : 55
+
+        for (let minute = startMin; minute <= endMin; minute += 5) {
+          if (hour === endHour && minute > 0) break
+          const timeStr = `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`
+          dates.push(timeStr)
+        }
+      }
+      break
     case "1D":
       // Generate hourly data for current day
       for (let hour = 9; hour <= 16; hour++) {
@@ -93,6 +111,10 @@ const mockETFData = [
       { sector: "Other", percentage: 18.1 },
     ],
     chartData: {
+      "5min": generateDateRange(1990, 2024, "5min").map((time, i) => ({
+        time,
+        price: 445.67 + Math.sin(i * 0.1) * 2 + (Math.random() - 0.5) * 0.5,
+      })),
       "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 443.33 + i * 0.5 })),
       "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 440.12 + i * 1.2 })),
       "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 435.23 + i * 2.8 })),
@@ -102,6 +124,7 @@ const mockETFData = [
       "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 285.34 + i * 32.1 })),
     },
     performance: {
+      "5min": 0.12,
       "1D": 0.53,
       "1W": 1.24,
       "1M": 2.41,
@@ -139,6 +162,10 @@ const mockETFData = [
       { sector: "Other", percentage: 18.1 },
     ],
     chartData: {
+      "5min": generateDateRange(1990, 2024, "5min").map((time, i) => ({
+        time,
+        price: 408.23 + Math.sin(i * 0.1) * 1.8 + (Math.random() - 0.5) * 0.4,
+      })),
       "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 406.08 + i * 0.5 })),
       "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 404.12 + i * 1.2 })),
       "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 403.23 + i * 2.8 })),
@@ -148,6 +175,7 @@ const mockETFData = [
       "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 382.34 + i * 32.1 })),
     },
     performance: {
+      "5min": 0.11,
       "1D": 0.53,
       "1W": 1.24,
       "1M": 2.41,
@@ -185,6 +213,10 @@ const mockETFData = [
       { sector: "Other", percentage: 18.1 },
     ],
     chartData: {
+      "5min": generateDateRange(1990, 2024, "5min").map((time, i) => ({
+        time,
+        price: 445.89 + Math.sin(i * 0.1) * 2.1 + (Math.random() - 0.5) * 0.6,
+      })),
       "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 443.53 + i * 0.5 })),
       "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 442.53 + i * 1.2 })),
       "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 441.23 + i * 2.8 })),
@@ -194,6 +226,7 @@ const mockETFData = [
       "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 428.23 + i * 32.1 })),
     },
     performance: {
+      "5min": 0.13,
       "1D": 0.53,
       "1W": 1.24,
       "1M": 2.41,
@@ -231,6 +264,10 @@ const mockETFData = [
       { sector: "Other", percentage: 18.7 },
     ],
     chartData: {
+      "5min": generateDateRange(1990, 2024, "5min").map((time, i) => ({
+        time,
+        price: 267.89 + Math.sin(i * 0.1) * 1.5 + (Math.random() - 0.5) * 0.3,
+      })),
       "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 266.11 + i * 0.5 })),
       "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 265.11 + i * 1.2 })),
       "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 264.11 + i * 2.8 })),
@@ -240,6 +277,7 @@ const mockETFData = [
       "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 251.11 + i * 32.1 })),
     },
     performance: {
+      "5min": 0.15,
       "1D": 0.67,
       "1W": 2.41,
       "1M": 4.78,
@@ -277,6 +315,10 @@ const mockETFData = [
       { sector: "Other", percentage: 4.5 },
     ],
     chartData: {
+      "5min": generateDateRange(1990, 2024, "5min").map((time, i) => ({
+        time,
+        price: 378.92 + Math.sin(i * 0.1) * -1.2 + (Math.random() - 0.5) * 0.4,
+      })),
       "1D": generateDateRange(1990, 2024, "1D").map((time, i) => ({ time, price: 380.37 + i * 0.5 })),
       "1W": generateDateRange(1990, 2024, "1W").map((time, i) => ({ time, price: 379.37 + i * 1.2 })),
       "1M": generateDateRange(1990, 2024, "1M").map((time, i) => ({ time, price: 378.37 + i * 2.8 })),
@@ -286,6 +328,7 @@ const mockETFData = [
       "5Y": generateDateRange(1990, 2024, "5Y").map((time, i) => ({ time, price: 365.37 + i * 32.1 })),
     },
     performance: {
+      "5min": -0.08,
       "1D": -0.38,
       "1W": -1.12,
       "1M": -2.41,
@@ -381,6 +424,7 @@ export default function ETFDashboard() {
   }
 
   const timePeriods = [
+    { key: "5min", label: "5min" },
     { key: "1D", label: "1D" },
     { key: "1W", label: "1W" },
     { key: "1M", label: "1M" },
@@ -607,7 +651,7 @@ export default function ETFDashboard() {
                 {/* Mini Chart */}
                 <div className="h-24 w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={etf.chartData["1D"]}>
+                    <AreaChart data={etf.chartData[selectedPeriod]}>
                       <defs>
                         <linearGradient id={`miniGradient-${etf.symbol}`} x1="0" y1="0" x2="0" y2="1">
                           <stop

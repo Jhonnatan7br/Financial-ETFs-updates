@@ -56,14 +56,26 @@ export async function getETFData(symbol: string, interval = "5min"): Promise<any
 
 export function transformAlphaVantageData(data: AlphaVantageResponse, timeframe: string) {
   const timeSeries = data["Time Series (5min)"] || data["Time Series (Daily)"] || {}
-  const entries = Object.entries(timeSeries).slice(0, 20).reverse()
+  const entries = Object.entries(timeSeries)
+    .slice(0, timeframe === "5min" ? 78 : 20)
+    .reverse()
 
   return entries.map(([timestamp, values]) => ({
-    time: new Date(timestamp).toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
+    time:
+      timeframe === "5min"
+        ? new Date(timestamp).toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+        : new Date(timestamp).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          }),
     price: Number.parseFloat(values["4. close"]),
+    high: Number.parseFloat(values["2. high"]),
+    low: Number.parseFloat(values["3. low"]),
+    open: Number.parseFloat(values["1. open"]),
+    volume: Number.parseInt(values["5. volume"]),
   }))
 }
 
