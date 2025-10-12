@@ -1,7 +1,7 @@
 # 📈 Financial ETF Tracker - Professional Investment Dashboard
 
 *Real-time ETF monitoring and analysis platform built with Next.js and Alpha Vantage API*
- 
+
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/jhonnatan7br-6217s-projects/v0-financial-etf-updates)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/DglhRfMtNQz)
 
