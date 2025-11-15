@@ -6,7 +6,7 @@ And
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/DglhRfMtNQz)
 
 <img width="1178" height="796" alt="image" src="https://github.com/user-attachments/assets/8f41cd4a-2c6b-4114-83ce-8131f8ef7323" /> 
-
+I 
 ## 🚀 What This Platform Offers 
 
 ### For Investment Professionals
