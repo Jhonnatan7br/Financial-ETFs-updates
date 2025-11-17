@@ -14,7 +14,7 @@ I
 - **Advanced comparison tools** with multiple timeframes (Day, Week, Month, 3M, 6M, Year, 2Y, 5Y)
 - **Professional-grade charts** with technical indicators and performance metrics
 - **Portfolio composition analysis** showing top holdings and sector allocations
-
+ 
 ### For Individual Investors
 - **Simplified ETF discovery** with search and filtering capabilities
 - **Clear performance visualization** with green/red trend indicators
