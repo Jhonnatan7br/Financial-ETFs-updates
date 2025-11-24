@@ -8,7 +8,7 @@ I
 <img width="1178" height="796" alt="image" src="https://github.com/user-attachments/assets/8f41cd4a-2c6b-4114-83ce-8131f8ef7323" /> 
 I 
 ## 🚀 What This Platform Offers 
-
+I 
 ### For Investment Professionals
 - **Real-time ETF monitoring** across 21+ major funds including SPY, QQQ, VTI, and European markets
 - **Advanced comparison tools** with multiple timeframes (Day, Week, Month, 3M, 6M, Year, 2Y, 5Y)
