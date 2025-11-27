@@ -1,4 +1,4 @@
-# 📈 Financial ETF Tracker - Professional Investment Dashboard
+# 📈 Financial ETF Tracker - Professional Investment Dashboard 
 I
 *Real-time ETF monitoring and analysis platform built with Next.js and Alpha Vantage API*
 And 
