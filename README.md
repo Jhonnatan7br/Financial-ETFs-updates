@@ -3,11 +3,11 @@
 *Real-time ETF monitoring and analysis platform built with Next.js and Alpha Vantage API* 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/jhonnatan7br-6217s-projects/v0-financial-etf-updates)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/DglhRfMtNQz)
-I 
+
 <img width="1178" height="796" alt="image" src="https://github.com/user-attachments/assets/8f41cd4a-2c6b-4114-83ce-8131f8ef7323" /> 
-I 
+
 ## 🚀 What This Platform Offers 
-I 
+
 ### For Investment Professionals
 - **Real-time ETF monitoring** across 21+ major funds including SPY, QQQ, VTI, and European markets
 - **Advanced comparison tools** with multiple timeframes (Day, Week, Month, 3M, 6M, Year, 2Y, 5Y)
